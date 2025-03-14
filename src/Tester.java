@@ -33,7 +33,7 @@ public class Tester {
             int newObj = DataInput.getInt(null);
             switch (newObj) {
                 case 1:
-                    creatFuck();
+                    creatFuc();
                     break;
                 case 2:
                     createDep();
@@ -77,7 +77,7 @@ public class Tester {
 private static void teachersSort() {
 }
 private static void studSort() {}
-    private static void creatFuck(){}
+    private static void creatFuc(){}
     private static void createDep(){
     }
     private static void createTeacher(){
