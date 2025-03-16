@@ -1,12 +1,17 @@
 //факультет
 
-class Faculty{
-    String nameOfFaculty;
+public class Faculty {
+    private String name;
 
     public Faculty(String name) {
-        this.nameOfFaculty = name;
+        this.name = Utils.formatEntityName(name);
     }
-    public String getNameOfFaculty() {
-        return nameOfFaculty;
+
+    public final void rename(String name) {
+        this.name = Utils.formatEntityName(name);
+    }
+
+    public final String getName() {
+        return name;
     }
 }
