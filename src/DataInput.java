@@ -40,4 +40,5 @@ public final class DataInput {
         String s = br.readLine();
         return s;
     }
+
 }

@@ -8,7 +8,7 @@ public class Main {
         uni.addStudent("Лариса","Косач-Квітка", "Петрівна", 0, 2, 1);
         uni.addStudent("Арсенія","Грицька", "Сатанівна", 0, 2, 1);
         uni.addStudent("Арсеній","Філюшкін", "Павлович", 0, 1, 1);
-        System.out.println(uni.getSortedDepartmentTeachersByAlphabet(0));
-        System.out.println(uni.searchStudentsByName("а"));
+        System.out.println(uni.getSortedFacultyStudentsByAlphabet(0));
+       // System.out.println(uni.searchStudentsByName("а"));
     }
 }

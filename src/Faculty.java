@@ -14,4 +14,5 @@ public class Faculty {
     public final String getName() {
         return name;
     }
+
 }

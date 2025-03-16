@@ -23,4 +23,8 @@ class Student extends Person {
     public final int getGroup() {
         return group;
     }
+
+    public String toString() {
+        return getFullName() + ", " + year + ", " + group;
+    }
 }

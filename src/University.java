@@ -122,7 +122,7 @@ class StudentList {
         count = 0;
     }
 
-    public final void add(Student student) {
+    public void add(Student student) {
         if (count == students.length) {
             Student[] reallocated = new Student[students.length * 2];
             for (int i = 0; i < count - 1; ++i)
@@ -146,6 +146,16 @@ class StudentList {
     public final int getCount() {
         return count;
     }
+    Student[] student = new Student []{
+            new Student("Петров", "Петров", "Петрович", 1, 3, 2),
+            new Student("Доп", "Шкібіді", "Доп", 2, 1, 3),
+            new Student("Марина", "Оріфлейм", "Бананівна", 1, 2, 1),
+
+    };
+
+    public  String toString() {
+        return student.toString();
+    }
 }
 
 public class University {
@@ -159,6 +169,39 @@ public class University {
         departments = new DepartmentList();
         students = new StudentList();
         teachers = new TeacherList();
+    }
+
+    public void addingStudent(){
+        this.addStudent("Петро", "Петренко", "Петрович", 0, 2, 1);
+        this.addStudent("Доп", "Шкібіді", "Доп", 0, 3, 3);
+        this.addStudent("Микола", "Науменко", "Васильович", 0, 1, 2);
+        this.addStudent("Аліна", "Кротик", "Юріївна", 0, 1, 3);
+        this.addStudent("Анатолій", "Чіпідейл", "Максимович", 0, 5, 1);
+        this.addStudent("Станіслав", "Чорний", "Олегович", 0, 2, 2);
+        this.addStudent("Марина", "Оріфлейм", "Андріївна", 0, 3, 1);
+        this.addStudent("Ігор", "Іванюк", "Іванович", 0, 4, 3);
+        this.addStudent("Лілія", "Дорошенко", "Богданівна", 0, 1, 1);
+        this.addStudent("Микита", "Йолопенко", "Денисович", 0, 2, 4);
+        this.addStudent("Степан", "Комарик", "Васильович", 0, 3, 2);
+        this.addStudent("Ангеліна", "Лесик", "Назарівна", 0, 1, 3);
+        this.addStudent("Олексій", "Харченко", "Павлович", 0, 2, 1);
+        this.addStudent("Іван", "Геращенко", "Ігорович", 0, 5, 3);
+        this.addStudent("Марина", "Поліщук", "Вікторівна", 0, 3, 1);
+        this.addStudent("Олена", "Кравчук", "Михайлівна", 0, 4, 2);
+        this.addStudent("Андрій", "Соловей", "Сергійович", 0, 5, 2);
+        this.addStudent("Ольга", "Зозуля", "Андріївна", 0, 2, 1);
+        this.addStudent("Денис", "Погорілий", "Петрович", 0, 1, 4);
+        this.addStudent("Анна", "Дорошенко", "Олексіївна", 0, 2, 3);
+        this.addStudent("Дмитро", "Кравченко", "Сергійович", 0, 4, 2);
+        this.addStudent("Оксана", "Жук", "Михайлівна", 0, 3, 1);
+        this.addStudent("Богдан", "Левченко", "Михайлович", 0, 2, 2);
+        this.addStudent("Марина", "Іванчук", "Павлівна", 0, 5, 1);
+        this.addStudent("Євгеній", "Савчук", "Іванович", 0, 1, 4);
+        this.addStudent("Вадим", "Мельник", "Олександрович", 0, 3, 1);
+        this.addStudent("Ірина", "Гончарук", "Сергіївна", 0, 2, 1);
+        this.addStudent("Богдана", "Коваль", "Петрівна", 0, 6, 2);
+        this.addStudent("Юрій", "Остапенко", "Анатолійович", 0, 4, 3);
+
     }
 
     /**
@@ -599,5 +642,9 @@ public class University {
         Department department = departments.get(student.getDepartment());
         Faculty faculty = faculties.get(department.getFaculty());
         return student.getFullName() + ", " + faculty.getName() + ", " + department.getName() + ": " + student.getYear() + " курс, " + student.getGroup() + " група";
+    }
+
+    public StudentList getStudents() {
+        return students;
     }
 }
