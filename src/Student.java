@@ -4,16 +4,16 @@ class Student extends Person {
 
     public Student(String name, String surname, String pb, int department, int year, int group) {
         super(name, surname, pb, department);
-        this.year = year < 1 ? 1 : (year > 4 ? 4 : year);
-        this.group = group < 1 ? 1 : group;
+        this.year = year;
+        this.group = group;
     }
 
     public final void changeYear(int year) {
-        this.year = year < 1 ? 1 : (year > 4 ? 4 : year);
+        this.year = year;
     }
 
     public final void changeGroup(int group) {
-        this.group = group < 1 ? 1 : group;
+        this.group = group;
     }
 
     public final int getYear() {
