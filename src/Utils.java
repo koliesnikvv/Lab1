@@ -42,4 +42,21 @@ public class Utils {
         }
         return result;
     }
+
+    public static boolean containsIgnoreCase(String source, String query) {
+        if (source == null || query == null) return false;
+        if (source.compareToIgnoreCase(query) == 0) return true;
+        int state = 0;
+        for (int i = 0, j = 0, lenA = source.length(), lenB = query.length(); i < lenA && state < 1; ++i) {
+            char a = Character.toLowerCase(source.charAt(i));
+            char b = Character.toLowerCase(query.charAt(j));
+            if (a == b) {
+                if (lenB == 1 || j == lenB - 1)
+                    state = 1;
+                else
+                    ++j;
+            } else j = 0;
+        }
+        return state == 1;
+    }
 }

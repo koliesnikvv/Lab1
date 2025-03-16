@@ -250,24 +250,58 @@ public class University {
         teachers.remove(teacher);
     }
 
-    public final String searchTeachersByName(String name, String surname, String pb) {
-        return "Результати пошуку викладачів за іменем";
+    public final String searchTeachersByName(String query) {
+        int count = teachers.getCount();
+        if (count == 0) return "";
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            Teacher t = teachers.get(i);
+            if (Utils.containsIgnoreCase(t.getFullName(), query))
+                result += getTeacherInfo(t) + ((i == count - 1) ? "" : "\n");
+        }
+        return result;
     }
 
-    public final String searchStudentsByName(String name, String surname, String pb) {
-        return "Результати пошуку студентів за іменем";
+    public final String searchStudentsByName(String query) {
+        int count = students.getCount();
+        if (count == 0) return "";
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            Student s = students.get(i);
+            if (Utils.containsIgnoreCase(s.getFullName(), query))
+                result += getStudentInfo(s) + ((i == count - 1) ? "" : "\n");
+        }
+        return result;
     }
 
     public final String searchStudentsByYear(int year) {
-        return "Результати пошуку викладачів за іменем";
+        int count = students.getCount();
+        if (count == 0) return "";
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            Student s = students.get(i);
+            if (s.getYear() == year)
+                result += getStudentInfo(s) + ((i == count - 1) ? "" : "\n");
+        }
+        return result;
     }
 
     public final String searchStudentsByGroup(int group) {
-        return "Результати пошуку студентів за групою";
+        int count = students.getCount();
+        if (count == 0) return "";
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            Student s = students.get(i);
+            if (s.getGroup() == group)
+                result += getStudentInfo(s) + ((i == count - 1) ? "" : "\n");
+        }
+        return result;
     }
 
     public final String getSortedStudentsByYear() {
         int count = students.getCount();
+        if (count == 0)
+            return "";
         Student[] sorted = new Student[count];
         for (int i = 0; i < count; ++i)
             sorted[i] = students.get(i);
@@ -290,6 +324,8 @@ public class University {
 
     public final String getSortedFacultyStudentsByAlphabet(int faculty) {
         int count = students.getCount();
+        if (count == 0)
+            return "";
         Student[] sorted = new Student[count];
         for (int i = 0, j = 0, len = count; i < len; ++i) {
             Student s = students.get(i);
@@ -318,6 +354,8 @@ public class University {
 
     public final String getSortedFacultyTeachersByAlphabet(int faculty) {
         int count = teachers.getCount();
+        if (count == 0)
+            return "";
         Teacher[] sorted = new Teacher[count];
         for (int i = 0, j = 0, len = count; i < len; ++i) {
             Teacher t = teachers.get(i);
@@ -346,6 +384,8 @@ public class University {
 
     public final String getSortedDepartmentStudentsByYear(int department) {
         int count = students.getCount();
+        if (count == 0)
+            return "";
         Student[] sorted = new Student[count];
         for (int i = 0, j = 0, len = count; i < len; ++i) {
             Student s = students.get(i);
@@ -373,19 +413,116 @@ public class University {
     }
 
     public final String getSortedDepartmentStudentsByAlphabet(int department) {
-        return "Студенти кафедри, відсортовані за алфавітом";
+        int count = students.getCount();
+        if (count == 0)
+            return "";
+        Student[] sorted = new Student[count];
+        for (int i = 0, j = 0, len = count; i < len; ++i) {
+            Student s = students.get(i);
+            if (s.getDepartment() != department) {
+                --count;
+                continue;
+            }
+            sorted[j++] = students.get(i);
+        }
+        for (int i = 1; i < count; ++i) {
+            Student student = sorted[i];
+            int j;
+            for (j = i - 1; j >= 0 && sorted[j].getFullName().compareToIgnoreCase(student.getFullName()) > 0; --j)
+                sorted[j + 1] = sorted[j];
+            sorted[j + 1] = student;
+        }
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            String info = getStudentInfo(sorted[i]);
+            if (i < count - 1)
+                info += "\n";
+            result += info;
+        }
+        return result;
     }
 
     public final String getSortedDepartmentTeachersByAlphabet(int department) {
-        return "Викладачі кафедри, відсортовані за алфавітом";
+        int count = teachers.getCount();
+        if (count == 0)
+            return "";
+        Teacher[] sorted = new Teacher[count];
+        for (int i = 0, j = 0, len = count; i < len; ++i) {
+            Teacher t = teachers.get(i);
+            if (t.getDepartment() != department) {
+                --count;
+                continue;
+            }
+            sorted[j++] = teachers.get(i);
+        }
+        for (int i = 1; i < count; ++i) {
+            Teacher teacher = sorted[i];
+            int j;
+            for (j = i - 1; j >= 0 && sorted[j].getFullName().compareToIgnoreCase(teacher.getFullName()) > 0; --j)
+                sorted[j + 1] = sorted[j];
+            sorted[j + 1] = teacher;
+        }
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            String info = getTeacherInfo(sorted[i]);
+            if (i < count - 1)
+                info += "\n";
+            result += info;
+        }
+        return result;
     }
 
     public final String getDepartmentStudentsOfYear(int department, int year) {
-        return "Студенти кафедри певного курсу";
+        int count = students.getCount();
+        if (count == 0)
+            return "";
+        Student[] sorted = new Student[count];
+        for (int i = 0, j = 0, len = count; i < len; ++i) {
+            Student s = students.get(i);
+            if (s.getDepartment() != department || s.getYear() != year) {
+                --count;
+                continue;
+            }
+            sorted[j++] = students.get(i);
+        }
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            String info = getStudentInfo(sorted[i]);
+            if (i < count - 1)
+                info += "\n";
+            result += info;
+        }
+        return result;
     }
 
     public final String getDepartmentStudentsOfYearByAlphabet(int department, int year) {
-        return "Студенти кафедри певного курсу, відсортовані за алфавітом";
+        int count = students.getCount();
+        if (count == 0)
+            return "";
+        Student[] sorted = new Student[count];
+        for (int i = 0, j = 0, len = count; i < len; ++i) {
+            Student s = students.get(i);
+            if (s.getDepartment() != department || s.getYear() != year) {
+                --count;
+                continue;
+            }
+            sorted[j++] = students.get(i);
+        }
+        for (int i = 1; i < count; ++i) {
+            Student student = sorted[i];
+            int j;
+            for (j = i - 1; j >= 0 && sorted[j].getFullName().compareToIgnoreCase(student.getFullName()) > 0; --j)
+                sorted[j + 1] = sorted[j];
+            sorted[j + 1] = student;
+        }
+        String result = "";
+        for (int i = 0; i < count; ++i) {
+            String info = getStudentInfo(sorted[i]);
+            if (i < count - 1)
+                info += "\n";
+            result += info;
+        }
+        return result;
     }
 
     public final int getFacultyCount() {
@@ -461,6 +598,6 @@ public class University {
     private String getStudentInfo(Student student) {
         Department department = departments.get(student.getDepartment());
         Faculty faculty = faculties.get(department.getFaculty());
-        return student.getFullName() + ", " + faculty.getName() + ", " + department.getName() + ": " + student.getYear() + " курс, " + student.getGroup();
+        return student.getFullName() + ", " + faculty.getName() + ", " + department.getName() + ": " + student.getYear() + " курс, " + student.getGroup() + " група";
     }
 }
