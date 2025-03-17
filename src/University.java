@@ -90,7 +90,7 @@ class TeacherList {
     public final void add(Teacher teacher) {
         if (count == teachers.length) {
             Teacher[] reallocated = new Teacher[teachers.length * 2];
-            for (int i = 0; i < count - 1; ++i)
+            for (int i = 0; i < count ; ++i)
                 reallocated[i] = teachers[i];
             teachers = reallocated;
         }
@@ -125,7 +125,7 @@ class StudentList {
     public void add(Student student) {
         if (count == students.length) {
             Student[] reallocated = new Student[students.length * 2];
-            for (int i = 0; i < count - 1; ++i)
+            for (int i = 0; i < count ; ++i)
                 reallocated[i] = students[i];
             students = reallocated;
         }
@@ -147,10 +147,6 @@ class StudentList {
         return count;
     }
     Student[] student = new Student []{
-            new Student("Петров", "Петров", "Петрович", 1, 3, 2),
-            new Student("Доп", "Шкібіді", "Доп", 2, 1, 3),
-            new Student("Марина", "Оріфлейм", "Бананівна", 1, 2, 1),
-
     };
 
     public  String toString() {
@@ -201,6 +197,19 @@ public class University {
         this.addStudent("Ірина", "Гончарук", "Сергіївна", 0, 2, 1);
         this.addStudent("Богдана", "Коваль", "Петрівна", 0, 6, 2);
         this.addStudent("Юрій", "Остапенко", "Анатолійович", 0, 4, 3);
+
+    }
+
+    public void addingTeacher(){
+        this.addTeacher("Михайло", "Бондаренко", "Сергійович", 1, "викладач математики");
+        this.addTeacher("Юрій", "Тарасенко", "Володимирович", 0, "викладач фізики");
+        this.addTeacher("Анна", "Лісова", "Олександрівна", 0, "викладачка алгоритмів і структур даних");
+        this.addTeacher("Василь", "Грицай", "Павлович",1, "викладач математичного аналізу" );
+        this.addTeacher("Ірина", "Петренко", "Вікторівна", 1, "викладачка лінійної алгебри");
+        this.addTeacher("Денис", "Савченко", "Ігорович", 0, "викладач основ мережевих технологій");
+        this.addTeacher("Катерина", "Шевченко", "Дмитрівна", 0, "викладачка МОПІ");
+        this.addTeacher("Олександр", "Демченко", "Юрійович", 0, "викладач математичної логіки");
+        this.addTeacher("Іван", "Наливайко", "Олексійович", 1, "викладач диференціальних рівнянь");
 
     }
 

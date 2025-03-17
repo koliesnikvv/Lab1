@@ -103,7 +103,7 @@ public class Tester {
                 case 1 -> facultySort();
                 case 2 -> departmentSort(new University());
                 case 3 -> teachersSort();
-                case 4 -> studSort();
+                case 4 -> studSort(new University());
                 default -> System.out.println("Будь ласка, введіть коректне значення!");
 
             }
@@ -124,6 +124,15 @@ public class Tester {
                 String students = university.getSortedFacultyStudentsByAlphabet(0);
               System.out.println(students);
             }
+            case 2 -> {
+                University university = new University();
+                university.addDepartment("Кафедра ІПЗ", 0);
+                university.addDepartment("Кафедра КН", 0);
+                university.addingTeacher();
+                System.out.println("Викладачі, відсортовані за алфавіом по факультету: ");
+                String teachers = university.getSortedFacultyTeachersByAlphabet(0);
+                System.out.println(teachers);
+            }
 
         }
     }
@@ -132,11 +141,44 @@ public class Tester {
         int chooseForDep = DataInput.getInt(null);
         switch (chooseForDep){
             case 1 -> {
-                String dep = university.getSortedDepartmentStudentsByYear(0);
-                System.out.println(dep);
+                university = new University();
+                university.addFaculty("Факультет Інформатики");
+                university.addDepartment("Кафедра ІПЗ", 0);
+                university.addDepartment("Кафедра КН", 0);
+                university.addingStudent();
+                System.out.println("Студенти кафедри, посортовані за курсами: ");
+                String students = university.getSortedDepartmentStudentsByYear(0);
+                System.out.println(students);
             }
-//            case 2 -> ;
-//            case 3 -> ;
+            case 2 -> {
+                university = new University();
+                university.addFaculty("Факультет Інформатики");
+                university.addDepartment("Кафедра ІПЗ", 0);
+                university.addDepartment("Кафедра КН", 0);
+                university.addingStudent();
+                System.out.println("Студенти кафедри, посортовані за алфавітом: ");
+                String students = university.getSortedDepartmentStudentsByAlphabet(0);
+                System.out.println(students);
+
+            }
+            case 3 -> {
+                while(true) {
+                    System.out.println("Введіть номер курсу, який хочете вивести: ");
+                    int courseNum = DataInput.getInt(null);
+                    if (courseNum <= 0) {
+                        System.out.println("Введіть коректне значення!");
+                        continue;
+                    }
+                    university = new University();
+                    university.addFaculty("Факультет Інформатики");
+                    university.addDepartment("Кафедра ІПЗ", 0);
+                    university.addDepartment("Кафедра КН", 0);
+                    university.addingStudent();
+                    System.out.println("Студенти кафедри, що навчаються на конкретному курсі: ");
+                    String students = university.getDepartmentStudentsOfYear(0, courseNum);
+                    System.out.println(students);
+                }
+            }
 //            case 4 -> ;
         }
 
@@ -152,21 +194,64 @@ private static void teachersSort() {
     }
 
 }
-private static void studSort() {
-        System.out.println("Оберіть, що саме Ви хочете робити зі студентами: 1 - знайти студента за ПІБ, 2 - знайти студента за групою, 3 - знайти студента за курсом, 4 - вивести всіх студентів, упорядкованих за курсами, 5 - вивести студентів, упорядкованих по алфавіту, 6 - вивеси студентів кафедри за курсами, 7 - вивести студентів кафедри за алфавітом, 8 - вивести всіх студентів конкретного курсу, 9 - вивести студентів кафедри конкретного курсу: ");
+private static void studSort(University university) {
+        System.out.println("Оберіть, що саме Ви хочете робити зі студентами: 1 - знайти студента за ПІБ, 2 - знайти студента за групою, 3 - знайти студента за курсом, 4 - вивести всіх студентів, упорядкованих за курсами, 5 - вивести студентів, упорядкованих по алфавіту, 6 - вивесnи студентів кафедри за курсами, 7 - вивести студентів кафедри за алфавітом, 8 - вивести всіх студентів конкретного курсу, 9 - вивести студентів кафедри конкретного курсу: ");
         int chooseStudSorting= DataInput.getInt(null);
         switch (chooseStudSorting) {
-//            case 1 -> ;
+//            case 1 -> {
+//                System.out.println("Введіть ПІБ студента, якого шукаєте: ");
+//
+//                uni();
+//                System.out.println("Знаходження студента за прізвищем, іменем або по батькові: ");
+//                String students = university.searchStudentsByName(null);
+//                System.out.println(students);
+//            }
 //            case 2 -> ;
 //            case 3 -> ;
-//            case 4 -> ;
-          //  case 5 -> Sorter.sortingStudentsByFullName();
-//            case 6 -> ;
-//            case 7 -> ;
+            case 4 -> {
+                uni(university);
+                System.out.println("Усі студенти, упорядковані за курсами: ");
+                String students = university.getSortedStudentsByYear();
+                System.out.println(students);
+            }
+            case 5 -> {
+                uni(university);
+                System.out.println("Усі студенти, посортовані по алфавіту: ");
+                String students = university.getSortedFacultyStudentsByAlphabet(0);
+                System.out.println(students);
+            }
+            case 6 -> {
+                uni(university);
+                System.out.println("Студенти кафедри, впорядковані за курсами: ");
+                String students = university.getSortedDepartmentStudentsByYear(0);
+                System.out.println(students);
+            }
+            case 7 -> {
+                uni(university);
+                System.out.println("Студенти кафедри, впорядковані за алфавітом: ");
+                String students = university.getSortedDepartmentStudentsByAlphabet(0);
+                System.out.println(students);
+            }
 //            case 8 -> ;
-//            case 9 -> ;
+            case 9 -> {
+                while(true) {
+                    System.out.println("Введіть номер курсу, який хочете вивести: ");
+                    int courseNum = DataInput.getInt(null);
+                    if (courseNum <= 0) {
+                        System.out.println("Введіть коректне значення!");
+                        continue;
+                    }
+                    uni(university);
+                    System.out.println("Студенти кафедри, що навчаються на конкретному курсі: ");
+                    String students = university.getDepartmentStudentsOfYear(0, courseNum);
+                    System.out.println(students);
+                }
+            }
         }
 }
+
+
+
     private static void creatFuc(){}
     private static void createDep(){
     }
@@ -175,6 +260,14 @@ private static void studSort() {
     }
     private static void createStud(){
 
+    }
+
+    private static void uni(University university){
+        university = new University();
+        university.addFaculty("Факультет Інформатики");
+        university.addDepartment("Кафедра ІПЗ", 0);
+        university.addDepartment("Кафедра КН", 0);
+        university.addingStudent();
     }
 
 
