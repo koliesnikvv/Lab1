@@ -34,11 +34,30 @@ public final class DataInput {
         return value;
     }
 
-    public static String getString() throws IOException {
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
-        String s = br.readLine();
-        return s;
+//    public static String getString() throws IOException {
+//        InputStreamReader isr = new InputStreamReader(System.in);
+//        BufferedReader br = new BufferedReader(isr);
+//        String s = br.readLine();
+//
+//        return s;
+//    }
+public static String getString() throws IOException {
+    InputStreamReader isr = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(isr);
+    String s;
+    while (true) {
+        s = br.readLine();
+        if (s == null || s.trim().isEmpty()) {
+            System.out.println("Введіть коректне значення!");
+        } else {
+            break;
+        }
     }
+    return s;
+}
 
+
+    public static String getStr() {
+        return null;
+    }
 }
