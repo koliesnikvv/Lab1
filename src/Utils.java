@@ -1,4 +1,18 @@
+/* Utils.java =========================== */
+/* ====================================== */
+/* Лабораторна робота 1 ================= */
+/* ІПЗ-1 2024-25 ======================== */
+/* Колєснікова Вєроніка, Філюшкін Арсеній */
+
+/**
+ * Допоміжні методи
+ */
 public class Utils {
+    /**
+     * Форматує назви у вигляд "Моя хата з краю, нічого не знаю" - перша літера велика, всі інші маленькі, можуть бути лише пробіли і лише один.
+     * @param source Початкова назва
+     * @return Відформатована назва
+     */
     public static String formatEntityName(String source) {
         int state = 0;
         String result = "";
@@ -21,6 +35,11 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Форматує ім'я (одне) у вигляд "Лариса", "Петрівна", "Косач-Квітка". Початок з великої літери, все інше з маленької. Пробілів нема. Можуть бути подвійні імена.
+     * @param source Початкове ім'я
+     * @return Відформатоване ім'я
+     */
     public static String formatPersonName(String source) {
         boolean foundLetter = false;
         String result = "";
@@ -43,6 +62,12 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Перевіряє на наявність певного тексту у іншому тексті
+     * @param source Текст, у якому треба знайти інший текст
+     * @param query Текст, що шукається
+     * @return true при успішному знаходженні, false інакше
+     */
     public static boolean containsIgnoreCase(String source, String query) {
         if (source == null || query == null) return false;
         if (source.compareToIgnoreCase(query) == 0) return true;
