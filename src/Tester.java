@@ -1,12 +1,16 @@
 import java.io.IOException;
 
 public class Tester {
+    public static University university;
+
     public static void main(String[] args){
 //        University university = new University();
+//
 //        university.addFaculty("Факультет Інформатики");
 //        university.addDepartment("Кафедра ІПЗ", 0);
 //        university.addDepartment("Кафедра КН", 0);
 //        university.addingStudent();
+//        university.addingTeacher();
         welcomes();
 
 
@@ -20,7 +24,7 @@ public class Tester {
                 int currentOrNew = DataInput.getInt(null);
                 switch (currentOrNew) {
                     case 1:
-                        currentInfo();
+                        currentInfo(new University());
                         break;
                     case 2:
                         creatingNewObj();
@@ -66,15 +70,15 @@ public class Tester {
 
 
 
-    private static void currentInfo() {
+    private static void currentInfo(University university) {
         System.out.println("Чудовий вибір! У нас є вже готові факультети, кафедри, виклаадчі та студенти!");
         System.out.println("Будь ласка, оберіть, з чим Ви хочете ознайомитись:");
         while (true) {
             System.out.println("Щоб працювати з факультетами, натисніть 1; для кафедр натисніть 2; для викладачів натисніть 3; для студентів натисніть 4 (щоб вийти натисніть 0):");
             int whichObj = DataInput.getInt(null);
             switch (whichObj) {
-                case 1 -> facultySort(new University());
-                case 2 -> departmentSort(new University());
+                case 1 -> facultySort();
+                case 2 -> departmentSort();
                 case 3 -> teachersSort(new University());
                 case 4 -> studSort(new University());
                 default -> System.out.println("Будь ласка, введіть коректне значення!");
@@ -86,8 +90,8 @@ public class Tester {
         }
     }
 
-    private static void facultySort(University university) {
-        System.out.println("Оберіть, що Ви хочете робити з факультетом: 1 - вивести студентів за алфавітом по факультету, 2 - вивести викладачів за алфавітом по факультету: ");
+    private static void facultySort() {
+        System.out.println("Оберіть, що Ви хочете робити з факультетом: 1 - вивести студентів за алфавітом по факультету, 2 - вивести викладачів за алфавітом по факультету, 3 - редагувати факультет, 4 - додати факультет, 5 - видалити факультет: ");
         int chooseForFuc = DataInput.getInt(null);
         switch (chooseForFuc){
             case 1 -> {
@@ -101,19 +105,38 @@ public class Tester {
               System.out.println(students);
             }
             case 2 -> {
-                university = new University();
-                university.addDepartment("Кафедра ІПЗ", 0);
-                university.addDepartment("Кафедра КН", 0);
+//                university = new University();
+//                university.addDepartment("Кафедра ІПЗ", 0);
+//                university.addDepartment("Кафедра КН", 0);
                 university.addingTeacher();
                 System.out.println("Викладачі, відсортовані за алфавіом по факультету: ");
                 String teachers = university.getSortedFacultyTeachersByAlphabet(0);
                 System.out.println(teachers);
             }
+            case 3 -> {
+                System.out.println("Змініть ім'я наявного факультету");
+                System.out.println("Введіть нову назву факультету: ");
+                String newName;
+                try {
+                    newName = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String formattedName = Utils.formatEntityName(newName);
+                System.out.println("Нова назва факультету - " + formattedName);
+            }
+            case 4 -> {
+                creatFuc();
+            }
+            case 5 -> {
+                university.removeFaculty(0);
+                System.out.println("Факультет видалено!");
+            }
 
         }
     }
-    private static void departmentSort(University university) {
-        System.out.println("Оберіть, що саме Ви хочете робити з кафедрами: 1 - вивести студентів кафедри за курсами, 2 - вивести студентів кафедри за алфавітом, 3 - вивести студентів кафедри конкретного курсу, 4 - вивести викладачів за алфавітом по кафедрі: ");
+    private static void departmentSort() {
+        System.out.println("Оберіть, що саме Ви хочете робити з кафедрами: 1 - вивести студентів кафедри за курсами, 2 - вивести студентів кафедри за алфавітом, 3 - вивести студентів кафедри конкретного курсу, 4 - вивести викладачів за алфавітом по кафедрі, 5 - змінити ім'я кафедри, 6 - додати нову кафедру, 7 - видалити наявну кафедру: ");
         int chooseForDep = DataInput.getInt(null);
         switch (chooseForDep){
             case 1 -> {
@@ -156,23 +179,61 @@ public class Tester {
                 }
             }
             case 4 -> {
-                university = new University();
-                university.addFaculty("Факультет Інформатики");
-                university.addDepartment("Кафедра ІПЗ", 0);
-                university.addDepartment("Кафедра КН", 0);
-                university.addingTeacher();
+//                university = new University();
+//                university.addFaculty("Факультет Інформатики");
+//                university.addDepartment("Кафедра ІПЗ", 0);
+//                university.addDepartment("Кафедра КН", 0);
+//                university.addingTeacher();
                 System.out.println("Викладачі кафедри, відсортовані за алфавітом: ");
                 String teacher = university.getSortedDepartmentTeachersByAlphabet(0);
                 System.out.println(teacher);
+            }
+            case 5 -> {
+                System.out.println("Змініть ім'я наявної кафедри");
+                System.out.println("Введіть нову назву кафедри: ");
+                String newName;
+                try {
+                    newName = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String formattedName = Utils.formatEntityName(newName);
+                System.out.println("Нова назва кафедри - " + formattedName);
+            }
+            case 6 -> {
+                createDep();
+            }
+            case 7 -> {
+                university.removeDepartment(0);
+                System.out.println("Кафедру видалено!");
             }
         }
 
     }
 private static void teachersSort(University university) {
-    System.out.println("Оберіть, що саме Ви хочете робити з викладачами: 1 - знайти викладача за ПІБ, 2 - вивести викладачів за алфавітом по факультету, 3 - вивести викладачів за алфавітом по кафедрі: ");
+    System.out.println("Оберіть, що саме Ви хочете робити з викладачами: 1 - знайти викладача за ПІБ, 2 - вивести викладачів за алфавітом по факультету, 3 - вивести викладачів за алфавітом по кафедрі, 4 - редагувати викладача, 5 - додати викладача, 6 - видалити викладача: ");
     int chooseTeacherSort = DataInput.getInt(null);
     switch (chooseTeacherSort) {
-//        case 1 -> ;
+        case 1 -> {
+            university = new University();
+
+            university.addFaculty("Факультет Інформатики");
+            university.addDepartment("Кафедра ІПЗ", 0);
+            university.addDepartment("Кафедра КН", 0);
+            university.addingTeacher();
+            System.out.println("Введіть ПІБ викладача, якого бажаєте знайти: ");
+            String teachers = null;
+            try {
+                teachers = DataInput.getString();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String yourTeacher = university.searchTeachersByName(teachers);
+            System.out.println("Шуканий викладач: ");
+
+            System.out.println(yourTeacher);
+
+        }
         case 2 -> {
             university = new University();
             university.addFaculty("Факультет Інформатики");
@@ -193,24 +254,136 @@ private static void teachersSort(University university) {
             String teacher = university.getSortedDepartmentTeachersByAlphabet(0);
             System.out.println(teacher);
         }
+        case 4 -> {
+            university = new University();
+            university.addFaculty("Факультет Інформатики");
+            university.addDepartment("Кафедра ІПЗ", 0);
+            university.addDepartment("Кафедра КН", 0);
+            university.addingTeacher();
+            System.out.println("Якого викладача Ви плануєте змінити? Введіть ПІБ: ");
+            String teacher = null;
+            try {
+                teacher = DataInput.getString();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String chosenTeacher = university.searchTeachersByName(teacher);
+            System.out.println("Будемо змінювати викладача " + chosenTeacher);
+                editTeacher();
+            }
+
+        case 5 -> {
+            createTeacher();
+        }
+        case 6 -> {
+            System.out.println("Введіть ПІБ викладача, якого хочете видалити: ");
+            try {
+                String teacher = DataInput.getString();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Викладача видалено!");
+        }
             default -> System.out.println("Введіть коректне значення!");
     }
 
 }
-private static void studSort(University university) {
-        System.out.println("Оберіть, що саме Ви хочете робити зі студентами: 1 - знайти студента за ПІБ, 2 - знайти студента за групою, 3 - знайти студента за курсом, 4 - вивести всіх студентів, упорядкованих за курсами, 5 - вивести студентів, упорядкованих по алфавіту, 6 - вивесnи студентів кафедри за курсами, 7 - вивести студентів кафедри за алфавітом, 8 - вивести всіх студентів конкретного курсу, 9 - вивести студентів кафедри конкретного курсу: ");
+
+    private static void editTeacher() {
+        String name;
+        String surname;
+        String pb;
+        String newPosition;
+        String department;
+        System.out.println("Введіть нове ім'я викладача: ");
+        try {
+            name = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedName = Utils.formatPersonName(name);
+        System.out.println("Введіть нове прізвище викладача: ");
+        try {
+            surname = DataInput.getString();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        String formattedSurName = Utils.formatPersonName(surname);
+            System.out.println("Введіть нове по батькові викладача: ");
+        try {
+            pb = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedPb = Utils.formatPersonName(pb);
+        System.out.println("Введіть нову посаду викладача: ");
+        try {
+            newPosition = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedPosition = newPosition;
+        System.out.println("Введіть нову кафедру викладача: ");
+        try {
+            department = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedDep = department;
+        
+        System.out.println("Змінений викладач: " + formattedSurName + " " + formattedName + " " + formattedPb + ", нова посада: " + formattedPosition + ", нова кафедра: " + formattedDep );
+    }
+
+    private static void studSort(University university) {
+        System.out.println("Оберіть, що саме Ви хочете робити зі студентами: 1 - знайти студента за ПІБ, 2 - знайти студента за групою, 3 - знайти студента за курсом, 4 - вивести всіх студентів, упорядкованих за курсами, 5 - вивести студентів, упорядкованих по алфавіту, 6 - вивести студентів кафедри за курсами, 7 - вивести студентів кафедри за алфавітом, 8 - вивести всіх студентів конкретного курсу, 9 - вивести студентів кафедри конкретного курсу, 10 - редагувати студента, 11 - додати студента, 12 - видалити студента: ");
         int chooseStudSorting= DataInput.getInt(null);
         switch (chooseStudSorting) {
-//            case 1 -> {
-//                System.out.println("Введіть ПІБ студента, якого шукаєте: ");
-//
-//                uni();
-//                System.out.println("Знаходження студента за прізвищем, іменем або по батькові: ");
-//                String students = university.searchStudentsByName(null);
-//                System.out.println(students);
-//            }
-//            case 2 -> ;
-//            case 3 -> ;
+            case 1 -> {
+                university = new University();
+
+                university.addFaculty("Факультет Інформатики");
+                university.addDepartment("Кафедра ІПЗ", 0);
+                university.addDepartment("Кафедра КН", 0);
+                university.addingStudent();
+                System.out.println("Введіть ПІБ студента, якого шукаєте: ");
+                String students = null;
+                try {
+                    students = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String yourStudent = university.searchStudentsByName(students);
+                System.out.println("Шуканий студент: ");
+
+                System.out.println(yourStudent);
+
+            }
+            case 2 -> {
+                university = new University();
+
+                university.addFaculty("Факультет Інформатики");
+                university.addDepartment("Кафедра ІПЗ", 0);
+                university.addDepartment("Кафедра КН", 0);
+                university.addingStudent();
+                System.out.println("Введіть номер групи, щоб знайти відповідних студентів: ");
+                int groupNum = DataInput.getInt(null);
+                university.searchStudentsByYear(groupNum);
+                System.out.println("Ваші студенти обраної групи: ");
+                System.out.println(university.searchStudentsByGroup(groupNum));
+            }
+           case 3 -> {
+               university = new University();
+
+               university.addFaculty("Факультет Інформатики");
+               university.addDepartment("Кафедра ІПЗ", 0);
+               university.addDepartment("Кафедра КН", 0);
+               university.addingStudent();
+               System.out.println("Введіть номер курсу, щоб знайти відповідних студентів: ");
+               int courseNum = DataInput.getInt(null);
+               university.searchStudentsByYear(courseNum);
+               System.out.println("Ваші студенти обраного курсу: ");
+               System.out.println(university.searchStudentsByYear(courseNum));
+           }
             case 4 -> {
                 uni(university);
                 System.out.println("Усі студенти, упорядковані за курсами: ");
@@ -250,10 +423,70 @@ private static void studSort(University university) {
                     System.out.println(students);
                 }
             }
+            case 10 -> {
+                editStudent();
+
+            }
+            case 11 -> {
+                createStud();
+            }
+            case 12 -> {
+                System.out.println("Введіть ПІБ студента, якого хочете видалити: ");
+                try {
+                    String student = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Студента видалено!");
+
+            }
         }
 }
 
+    private static void editStudent() {
+        String name;
+        String surname;
+        String pb;
+        int newGroup;
+        int newCourse;
+        String department;
+        System.out.println("Введіть нове ім'я студента: ");
+        try {
+            name = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedName = Utils.formatPersonName(name);
+        System.out.println("Введіть нове прізвище студента: ");
+        try {
+            surname = DataInput.getString();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        String formattedSurName = Utils.formatPersonName(surname);
+        System.out.println("Введіть нове по батькові студента: ");
+        try {
+            pb = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedPb = Utils.formatPersonName(pb);
+        System.out.println("Введіть нову групу студента: ");
+        newGroup = DataInput.getInt(null);
+        int formattedGroup = newGroup;
+        System.out.println("Введіть новий курс студента: ");
+        newCourse = DataInput.getInt(null);
+        int formattedCourse = newCourse;
+        System.out.println("Введіть нову кафедру студента: ");
+        try {
+            department = DataInput.getString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String formattedDep = department;
 
+        System.out.println("Змінений студент: " + formattedSurName + " " + formattedName + " " + formattedPb + ", нова група: " + formattedGroup + ", новий курс:  " + formattedCourse + ", нова кафедра: " + formattedDep );
+    }
 
     private static void creatFuc() {
         String department;
@@ -294,30 +527,7 @@ private static void studSort(University university) {
                 System.out.println("Назву додано!");
                 System.out.println(department2);
                 System.out.println("Ваш новий факультет " + faculty + " та кафедри " + department + ", " + department2);
-
-
             }
-//            System.out.println("Бажаєте додати викладачів або студентів?");
-//            int choice = DataInput.getInt(null);
-//            if (choice == 1) {
-//                System.out.println("Введіть кількість викладачів: ");
-//                int teacherNum = DataInput.getInt(null);
-//                for (int i = 0; i < teacherNum; i++) {
-//                    System.out.println("Введіть ПІБ викладача: ");
-//                    try {
-//                        String newT = DataInput.getString();
-//                        teachers[i] = new Teacher(newT);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    System.out.println("Ваші викладачі: ");
-//
-//                }
-//
-//            }
-//            else {
-//                break;
-//            }
             break;
         }
     }
@@ -354,14 +564,108 @@ private static void studSort(University university) {
             }
         }
     }
-    private static void createTeacher(){
+    private static void createTeacher() {
+        System.out.println("Ви можете створити власних викладачів! ");
+        System.out.println("Введіть кількість викладачів, яких хочете додати: ");
+       int teacherNum = DataInput.getInt(null);
+       if (teacherNum <= 0) {
+           System.out.println("Введіть коректне значення!");
+       }
+       else {
+           String name = null;
+           String position = null;
+           String department = null;
+           String surname = null;
+           String pb =  null;
+           for (int i = 0; i < teacherNum; ++i) {
+               System.out.println("Введіть ім'я викладача: ");
+               try {
+                   name = DataInput.getString();
+               } catch (IOException e) {
+                   throw new RuntimeException(e);
+               }
+               System.out.println("Введіть прізвище викладача: ");
+               try {
+                   surname = DataInput.getString();
+               } catch (IOException e) {
+                   throw new RuntimeException(e);
+               }
+               System.out.println("Введіть по батькові викладача: ");
+               try {
+                   pb = DataInput.getString();
+               } catch (IOException e) {
+                   throw new RuntimeException(e);
+               }
+               System.out.println("Введіть кафедру викладача: ");
+               try {
+                   department = DataInput.getString();
+               } catch (IOException e) {
+                   throw new RuntimeException(e);
+               }
 
+               System.out.println("Введіть посаду викладача: ");
+               try {
+                   position = DataInput.getString();
+               } catch (IOException e) {
+                   throw new RuntimeException(e);
+               }
+               System.out.println("Ваш викладач: " + name + " " + surname + " " + pb  + ", посада: " + position + ", кафедра:  " + department);
+
+           }
+
+       }
     }
-    private static void createStud(){
 
+    private static void createStud() {
+        System.out.println("Ви можете створити власних студентів!");
+        System.out.println("Введіть кількість студентів, яких хочете додати: ");
+        int studentNum = DataInput.getInt(null);
+        if (studentNum <= 0) {
+            System.out.println("Введіть коректне значення!");
+        } else {
+            String name = null;
+            String surname = null;
+            String pb = null;
+            int course = 0;
+            String department = null;
+
+            for (int i = 0; i < studentNum; ++i) {
+                System.out.println("Введіть ім'я студента: ");
+                try {
+                    name = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Введіть прізвище студента: ");
+                try {
+                    surname = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Введіть по батькові студента: ");
+                try {
+                    pb = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Введіть номер групи студента: ");
+                Integer group = DataInput.getInt(null);
+                System.out.println("Введіть курс студента: ");
+                course = DataInput.getInt(null);
+                System.out.println("Введіть кафедру студента: ");
+                try {
+                    department = DataInput.getString();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                System.out.println("Ваш студент: " + name + " " + surname + " " + pb + ", група: " + group + ", курс: " + course + ", кафедра: " + department);
+            }
+        }
     }
 
-    private static void uni(University university){
+
+    private static void uni(University university ) {
         university = new University();
         university.addFaculty("Факультет Інформатики");
         university.addDepartment("Кафедра ІПЗ", 0);

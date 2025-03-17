@@ -235,7 +235,7 @@ public class University {
     }
 
     public final void renameFaculty(int faculty, String name) {
-        faculties.get(faculty).rename(name);
+       faculties.get(faculty).rename(name);
     }
 
     public final void renameDepartment(int department, String name) {
@@ -656,4 +656,5 @@ public class University {
     public StudentList getStudents() {
         return students;
     }
+
 }
