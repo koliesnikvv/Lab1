@@ -1,3 +1,12 @@
+/* University.java ====================== */
+/* ====================================== */
+/* Лабораторна робота 1 ================= */
+/* ІПЗ-1 2024-25 ======================== */
+/* Колєснікова Вєроніка, Філюшкін Арсеній */
+
+/**
+ * Список факультетів
+ */
 class FacultyList {
     private Faculty[] faculties;
     private int count;
@@ -7,6 +16,11 @@ class FacultyList {
         count = 0;
     }
 
+    /**
+     * Додає факультет
+     * @param faculty Об'єкт факультету
+     * @return true, якщо факультет було додано, false, якщо факультет існує
+     */
     public final boolean add(Faculty faculty) {
         for (int i = 0; i < count; ++i) {
             if (faculties[i].getName().equalsIgnoreCase(faculty.getName()))
@@ -22,6 +36,10 @@ class FacultyList {
         return true;
     }
 
+    /**
+     * Видаляє факультет
+     * @param index Індекс факультету
+     */
     public final void remove(int index) {
         index %= count;
         for (int i = index; i < count - 1; ++i)
@@ -29,15 +47,23 @@ class FacultyList {
         --count;
     }
 
+    /**
+     * @param index Індекс факультету
+     * @return Об'єкт факультету
+     */
     public final Faculty get(int index) {
         return faculties[index % count];
     }
 
+    /** @return Кількість */
     public final int getCount() {
         return count;
     }
 }
 
+/**
+ * Список кафедр
+ */
 class DepartmentList {
     private Department[] departments;
     private int count;
@@ -47,6 +73,10 @@ class DepartmentList {
         count = 0;
     }
 
+    /**
+     * Додає кафедру
+     * @param department Об'єкт кафедри
+     */
     public final void add(Department department) {
         for (int i = 0; i < count; ++i) {
             if (departments[i].getName().equalsIgnoreCase(department.getName()))
@@ -62,6 +92,10 @@ class DepartmentList {
         departments[count++] = department;
     }
 
+    /**
+     * Видаляє кафедру
+     * @param index Індекс кафедри
+     */
     public final void remove(int index) {
         index %= count;
         for (int i = index; i < count - 1; ++i)
@@ -69,15 +103,23 @@ class DepartmentList {
         --count;
     }
 
+    /**
+     * @param index Індекс кафедри
+     * @return Об'єкт кафедри
+     */
     public final Department get(int index) {
         return departments[index % count];
     }
 
+    /** @return Кількість */
     public final int getCount() {
         return count;
     }
 }
 
+/**
+ * Список викладачів
+ */
 class TeacherList {
     private Teacher[] teachers;
     private int count;
@@ -87,6 +129,10 @@ class TeacherList {
         count = 0;
     }
 
+    /**
+     * Додає викладача
+     * @param teacher Об'єкт викладача
+     */
     public final void add(Teacher teacher) {
         if (count == teachers.length) {
             Teacher[] reallocated = new Teacher[teachers.length * 2];
@@ -97,6 +143,10 @@ class TeacherList {
         teachers[count++] = teacher;
     }
 
+    /**
+     * Видаляє викладача
+     * @param index Індекс викладача
+     */
     public final void remove(int index) {
         index %= count;
         for (int i = index; i < count - 1; ++i)
@@ -104,15 +154,23 @@ class TeacherList {
         --count;
     }
 
+    /**
+     * @param index Індекс викладача
+     * @return Об'єкт викладача
+     */
     public final Teacher get(int index) {
         return teachers[index % count];
     }
 
+    /** @return Кількість */
     public final int getCount() {
         return count;
     }
 }
 
+/**
+ * Список студентів
+ */
 class StudentList {
     private Student[] students;
     private int count;
@@ -122,6 +180,10 @@ class StudentList {
         count = 0;
     }
 
+    /**
+     * Додає студента
+     * @param student Об'єкт студента
+     */
     public void add(Student student) {
         if (count == students.length) {
             Student[] reallocated = new Student[students.length * 2];
@@ -132,6 +194,10 @@ class StudentList {
         students[count++] = student;
     }
 
+    /**
+     * Видаляє студента
+     * @param index Індекс студента
+     */
     public final void remove(int index) {
         index %= count;
         for (int i = index; i < count - 1; ++i)
@@ -139,21 +205,29 @@ class StudentList {
         --count;
     }
 
+    /**
+     * @param index Індекс студента
+     * @return Об'єкт студента
+     */
     public final Student get(int index) {
         return students[index % count];
     }
 
+    /** @return Кількість */
     public final int getCount() {
         return count;
     }
     Student[] student = new Student []{
     };
 
-    public  String toString() {
+    public String toString() {
         return student.toString();
     }
 }
 
+/**
+ * Університет
+ */
 public class University {
     private final FacultyList faculties;
     private final DepartmentList departments;
@@ -167,7 +241,10 @@ public class University {
         teachers = new TeacherList();
     }
 
-    public void addingStudent(){
+    /**
+     * Ініціалізує заготовлених студентів
+     */
+    public void initializeStudents(){
         this.addStudent("Петро", "Петренко", "Петрович", 0, 2, 1);
         this.addStudent("Доп", "Шкібіді", "Доп", 0, 3, 3);
         this.addStudent("Микола", "Науменко", "Васильович", 0, 1, 2);
@@ -200,7 +277,10 @@ public class University {
 
     }
 
-    public void addingTeacher(){
+    /**
+     * Ініціалізує заготовлених викладачів
+     */
+    public void initializeTeachers(){
         this.addTeacher("Михайло", "Бондаренко", "Сергійович", 1, "викладач математики");
         this.addTeacher("Юрій", "Тарасенко", "Володимирович", 0, "викладач фізики");
         this.addTeacher("Анна", "Лісова", "Олександрівна", 0, "викладачка алгоритмів і структур даних");
@@ -210,70 +290,149 @@ public class University {
         this.addTeacher("Катерина", "Шевченко", "Дмитрівна", 0, "викладачка МОПІ");
         this.addTeacher("Олександр", "Демченко", "Юрійович", 0, "викладач математичної логіки");
         this.addTeacher("Іван", "Наливайко", "Олексійович", 1, "викладач диференціальних рівнянь");
-
     }
 
     /**
      * Додає факультет до університету.
-     * @param name ім'я факультету, форматується.
+     * @param name Назва факультету, форматується.
      * @return true, якщо факультет був успішно доданий, false, якщо такий факультет вже існує і, відповідно, не був доданий.
      */
     public final boolean addFaculty(String name) {
         return faculties.add(new Faculty(name));
     }
 
+    /**
+     * Додає кафедру до факультету.
+     * @param name Назва кафедри
+     * @param faculty Індекс факультету, до якого належить кафедра
+     */
     public final void addDepartment(String name, int faculty) {
         departments.add(new Department(name, faculty));
     }
 
+    /**
+     * Додає викладача до кафедри.
+     * @param name Ім'я
+     * @param surname Прізвище
+     * @param pb По батькові
+     * @param department Кафедра
+     * @param position Посада
+     */
     public final void addTeacher(String name, String surname, String pb, int department, String position) {
         teachers.add(new Teacher(name, surname, pb, department, position));
     }
 
+    /**
+     * Додає студента до кафедри.
+     * @param name Ім'я
+     * @param surname Прізвище
+     * @param pb По батькові
+     * @param department Кафедра
+     * @param year Курс
+     * @param group Група
+     */
     public final void addStudent(String name, String surname, String pb, int department, int year, int group) {
         students.add(new Student(name, surname, pb, department, year, group));
     }
 
+    /**
+     * Перейменовує факультет
+     * @param faculty Індекс факультета
+     * @param name Назва факультета
+     */
     public final void renameFaculty(int faculty, String name) {
        faculties.get(faculty).rename(name);
     }
 
+    /**
+     * Перейменовує кафедру
+     * @param department Індекс кафедри
+     * @param name Назва кафедри
+     */
     public final void renameDepartment(int department, String name) {
         departments.get(department).rename(name);
     }
 
+    /**
+     * Змінює факультет кафедри
+     * @param department Індекс кафедри
+     * @param faculty Індекс факультету
+     */
     public final void changeDepartmentFaculty(int department, int faculty) {
         departments.get(department).changeFaculty(faculty);
     }
 
+    /**
+     * Перейменовує студента
+     * @param student Індекс студента
+     * @param name Ім'я студента
+     * @param surname Прізвище студента
+     * @param pb По батькові студента
+     */
     public final void renameStudent(int student, String name, String surname, String pb) {
         students.get(student).rename(name, surname, pb);
     }
 
+    /**
+     * Змінює кафедру студента
+     * @param student Індекс студента
+     * @param department Кафедра студента
+     */
     public final void changeStudentDepartment(int student, int department) {
         students.get(student).changeDepartment(department);
     }
 
+    /**
+     * Змінює курс студента
+     * @param student Індекс студента
+     * @param year Курс студента
+     */
     public final void changeStudentYear(int student, int year) {
         students.get(student).changeYear(year);
     }
 
+    /**
+     * Змінює групу студента
+     * @param student Індекс студента
+     * @param group Група студента
+     */
     public final void changeStudentGroup(int student, int group) {
         students.get(student).changeGroup(group);
     }
 
+    /**
+     * Перейменовує викладача
+     * @param teacher Індекс викладача
+     * @param name Ім'я викладача
+     * @param surname Прізвище викладача
+     * @param pb По батькові викладача
+     */
     public final void renameTeacher(int teacher, String name, String surname, String pb) {
         teachers.get(teacher).rename(name, surname, pb);
     }
 
+    /**
+     * Змінює кафедру викладача
+     * @param teacher Індекс викладача
+     * @param department Індекс кафедри
+     */
     public final void changeTeacherDepartment(int teacher, int department) {
         teachers.get(teacher).changeDepartment(department);
     }
 
+    /**
+     * Змінює посаду викладача
+     * @param teacher Індекс викладача
+     * @param position Посада
+     */
     public final void changeTeacherPosition(int teacher, String position) {
         teachers.get(teacher).changePosition(position);
     }
 
+    /**
+     * Видаляє факультет, разом із ним і кафедри, що до нього належать
+     * @param faculty Індекс факультета
+     */
     public final void removeFaculty(int faculty) {
         faculties.remove(faculty);
         for (int i = 0; i < departments.getCount(); ++i) {
@@ -282,6 +441,10 @@ public class University {
         }
     }
 
+    /**
+     * Видаляє кафедру, разом із нею викладачів та студентів, що до неї належать
+     * @param department Індекс кафедри
+     */
     public final void removeDepartment(int department) {
         departments.remove(department);
         for (int i = 0; i < students.getCount(); ++i) {
@@ -294,14 +457,26 @@ public class University {
         }
     }
 
+    /**
+     * Видаляє студента
+     * @param student Індекс студента
+     */
     public final void fireStudent(int student) {
         students.remove(student);
     }
 
+    /**
+     * Видаляє викладача
+     * @param teacher Індекс викладача
+     */
     public final void fireTeacher(int teacher) {
         teachers.remove(teacher);
     }
 
+    /**
+     * Шукає викладачів за іменем, в даному випадку за наявністю символів у ньому
+     * @param query Пошуковий запит
+     */
     public final String searchTeachersByName(String query) {
         int count = teachers.getCount();
         if (count == 0) return "";
@@ -314,6 +489,10 @@ public class University {
         return result;
     }
 
+    /**
+     * Шукає студентів за іменем, в даному випадку за наявністю символів у ньому
+     * @param query Пошуковий запит
+     */
     public final String searchStudentsByName(String query) {
         int count = students.getCount();
         if (count == 0) return "";
@@ -326,6 +505,10 @@ public class University {
         return result;
     }
 
+    /**
+     * Шукає студентів за курсом
+     * @param year Курс
+     */
     public final String searchStudentsByYear(int year) {
         int count = students.getCount();
         if (count == 0) return "";
@@ -338,6 +521,10 @@ public class University {
         return result;
     }
 
+    /**
+     * Шукає студентів за групою
+     * @param group Група
+     */
     public final String searchStudentsByGroup(int group) {
         int count = students.getCount();
         if (count == 0) return "";
@@ -350,6 +537,9 @@ public class University {
         return result;
     }
 
+    /**
+     * @return Відформатований String, що містить список студентів, відсортованих за курсом
+     */
     public final String getSortedStudentsByYear() {
         int count = students.getCount();
         if (count == 0)
@@ -374,6 +564,10 @@ public class University {
         return result;
     }
 
+    /**
+     * @param faculty Факультет
+     * @return Відформатований String, що містить список студентів на факультеті, відсортованих за алфавітом
+     */
     public final String getSortedFacultyStudentsByAlphabet(int faculty) {
         int count = students.getCount();
         if (count == 0)
@@ -404,6 +598,10 @@ public class University {
         return result;
     }
 
+    /**
+     * @param faculty Факультет
+     * @return Відформатований String, що містить список викладачів на факультеті, відсортованих за алфавітом
+     */
     public final String getSortedFacultyTeachersByAlphabet(int faculty) {
         int count = teachers.getCount();
         if (count == 0)
@@ -434,6 +632,10 @@ public class University {
         return result;
     }
 
+    /**
+     * @param department Кафедра
+     * @return Відформатований String, що містить список студентів на кафедрі, відсортованих за курсом
+     */
     public final String getSortedDepartmentStudentsByYear(int department) {
         int count = students.getCount();
         if (count == 0)
@@ -464,6 +666,10 @@ public class University {
         return result;
     }
 
+    /**
+     * @param department Кафедра
+     * @return Відформатований String, що містить список студентів на кафедрі, відсортованих за алфавітом
+     */
     public final String getSortedDepartmentStudentsByAlphabet(int department) {
         int count = students.getCount();
         if (count == 0)
@@ -494,6 +700,10 @@ public class University {
         return result;
     }
 
+    /**
+     * @param department Кафедра
+     * @return Відформатований String, що містить список викладачів на кафедрі, відсортованих за алфавітом
+     */
     public final String getSortedDepartmentTeachersByAlphabet(int department) {
         int count = teachers.getCount();
         if (count == 0)
@@ -524,6 +734,11 @@ public class University {
         return result;
     }
 
+    /**
+     * @param department Кафедра
+     * @param year Курс
+     * @return Відформатований String, що містить список студентів на кафедрі певного курсу
+     */
     public final String getDepartmentStudentsOfYear(int department, int year) {
         int count = students.getCount();
         if (count == 0)
@@ -547,6 +762,11 @@ public class University {
         return result;
     }
 
+    /**
+     * @param department Кафедра
+     * @param year Курс
+     * @return Відформатований String, що містить список студентів на кафедрі певного курсу за алфавітом
+     */
     public final String getDepartmentStudentsOfYearByAlphabet(int department, int year) {
         int count = students.getCount();
         if (count == 0)
@@ -577,84 +797,139 @@ public class University {
         return result;
     }
 
+    /** @return Кількість факультетів */
     public final int getFacultyCount() {
         return faculties.getCount();
     }
 
+    /** @return Кількість кафедр */
     public final int getDepartmentCount() {
         return departments.getCount();
     }
 
+    /** @return Кількість викладачів */
     public final int getTeacherCount() {
         return students.getCount();
     }
 
+    /** @return Кількість студентів */
     public final int getStudentCount() {
         return students.getCount();
     }
 
+    /**
+     * @param index Індекс факультету
+     * @return Назва факультету
+     */
     public final String getFacultyName(int index) {
         return faculties.get(index).getName();
     }
 
+    /**
+     * @param index Індекс кафедри
+     * @return Назва кафедри
+     */
     public final String getDepartmentName(int index) {
         return departments.get(index).getName();
     }
 
+    /**
+     * @param index Індекс кафедри
+     * @return Індекс факультету, до якого належить кафедра
+     */
     public final int getDepartmentFaculty(int index) {
         return departments.get(index).getFaculty();
     }
 
+    /**
+     * @param index Індекс викладача
+     * @return ПІБ викладача
+     */
     public final String getTeacherName(int index) {
         return teachers.get(index).getFullName();
     }
 
+    /**
+     * @param index Індекс викладача
+     * @return Кафедра викладача
+     */
     public final int getTeacherDepartment(int index) {
         return teachers.get(index).getDepartment();
     }
 
+    /**
+     * @param index Індекс викладача
+     * @return Факультет викладача
+     */
     public final int getTeacherFaculty(int index) {
         return departments.get(teachers.get(index).getDepartment()).getFaculty();
     }
 
+    /**
+     * @param index Індекс викладача
+     * @return Посада викладача
+     */
     public final String getTeacherPosition(int index) {
         return teachers.get(index).getPosition();
     }
 
+    /**
+     * @param index Індекс студента
+     * @return ПІБ студента
+     */
     public final String getStudentName(int index) {
         return students.get(index).getFullName();
     }
 
+    /**
+     * @param index Індекс студента
+     * @return Кафедра студента
+     */
     public final int getStudentDepartment(int index) {
         return students.get(index).getDepartment();
     }
 
+    /**
+     * @param index Індекс студента
+     * @return Факультет студента
+     */
     public final int getStudentFaculty(int index) {
         return departments.get(students.get(index).getDepartment()).getFaculty();
     }
 
+    /**
+     * @param index Індекс студента
+     * @return Курс студента
+     */
     public final int getStudentYear(int index) {
         return students.get(index).getYear();
     }
 
+    /**
+     * @param index Індекс студента
+     * @return Група студента
+     */
     public final int getStudentGroup(int index) {
         return students.get(index).getGroup();
     }
 
+    /**
+     * @param teacher Об'єкт викладача
+     * @return Повна інформація про викладача у текстовому вигляді
+     */
     private String getTeacherInfo(Teacher teacher) {
         Department department = departments.get(teacher.getDepartment());
         Faculty faculty = faculties.get(department.getFaculty());
         return teacher.getFullName() + ", " + faculty.getName() + ", " + department.getName() + ": " + teacher.getPosition();
     }
 
+    /**
+     * @param student Об'єкт студента
+     * @return Повна інформація про студента у текстовому вигляді
+     */
     private String getStudentInfo(Student student) {
         Department department = departments.get(student.getDepartment());
         Faculty faculty = faculties.get(department.getFaculty());
         return student.getFullName() + ", " + faculty.getName() + ", " + department.getName() + ": " + student.getYear() + " курс, " + student.getGroup() + " група";
     }
-
-    public StudentList getStudents() {
-        return students;
-    }
-
 }
